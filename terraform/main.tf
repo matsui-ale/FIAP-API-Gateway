@@ -120,6 +120,14 @@ resource "aws_api_gateway_resource" "produto_categoria_resource" {
   path_part   = "{categoria}"
 }
 
+# Begin Pagamento
+resource "aws_api_gateway_resource" "pagamento_id_resource" {
+  rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
+  parent_id   = aws_api_gateway_resource.pagamento_resource.id
+  path_part   = "{id}"
+}
+# End Pagamento
+
 # Methods and Integrations for Each Endpoint
 
 ### /Cliente/{cpf} - GET ###
@@ -442,6 +450,31 @@ resource "aws_api_gateway_integration" "post_pagamento_integration" {
   type                    = "AWS_PROXY"
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_pagamento.arn}/invocations"
+}
+
+# [GET] /Pagamento/{id}
+resource "aws_api_gateway_method" "get_pagamento_by_id" {
+  rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
+  resource_id   = aws_api_gateway_resource.pagamento_id_resource.id
+  http_method   = "GET"
+  authorization = "CUSTOM"
+  authorizer_id = aws_api_gateway_authorizer.lambda_authorizer.id
+  request_parameters = {
+    "method.request.path.id" = true
+  }
+}
+
+resource "aws_api_gateway_integration" "get_pagamento_by_idintegration" {
+  rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
+  resource_id             = aws_api_gateway_resource.pagamento_id_resource.id
+  http_method             = aws_api_gateway_method.get_pagamento_by_id.http_method
+  type                    = "AWS_PROXY"
+  integration_http_method = "POST"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_pagamento.arn}/invocations"
+
+  request_parameters = {
+    "integration.request.path.id" = "method.request.path.id"
+  }
 }
 # End Pagamento
 
