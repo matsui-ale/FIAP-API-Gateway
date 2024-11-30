@@ -5,7 +5,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "terraform-tfstate-grupo12-fiap-2024"
+    bucket = "terraform-tfstate-grupo12-fiap-2024-01"
     key    = "api_gateway/terraform.tfstate"
     region = "us-east-1"
   }
