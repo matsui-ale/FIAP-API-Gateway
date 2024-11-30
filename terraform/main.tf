@@ -670,6 +670,24 @@ resource "aws_api_gateway_model" "CriarProdutoRequest" {
 EOF
 }
 
+resource "aws_api_gateway_model" "CriarPagamentoRequest" {
+  rest_api_id  = aws_api_gateway_rest_api.lanchonete_api.id
+  name         = "CriarPagamentoRequest"
+  content_type = "application/json"
+  schema       = <<EOF
+{
+  "title": "CriarPagamentoRequest",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "valor": { "type": "number" }
+  },
+  "required": ["id", "valor"],
+  "additionalProperties": false
+}
+EOF
+}
+
 # Deploy the API
 resource "aws_api_gateway_deployment" "lanchonete_deployment" {
   rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
