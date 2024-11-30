@@ -722,9 +722,9 @@ resource "aws_api_gateway_model" "CriarPagamentoRequest" {
   "type": "object",
   "properties": {
     "id": { "type": "string", "minLength": 1 },
-    "valor": { "type": "number" }
+    "valorTotal": { "type": "number" }
   },
-  "required": ["id", "valor"],
+  "required": ["id", "valorTotal"],
   "additionalProperties": false
 }
 EOF
