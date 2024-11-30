@@ -464,7 +464,7 @@ resource "aws_api_gateway_method" "get_pagamento_by_id" {
   }
 }
 
-resource "aws_api_gateway_integration" "get_pagamento_by_idintegration" {
+resource "aws_api_gateway_integration" "get_pagamento_by_id_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.pagamento_id_resource.id
   http_method             = aws_api_gateway_method.get_pagamento_by_id.http_method
@@ -568,6 +568,15 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento_post" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/POST/Pagamento"
+}
+
+resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento_get_by_id" {
+  statement_id  = "AllowAPIGatewayInvokeGetPagamentoById"
+  action        = "lambda:InvokeFunction"
+  function_name = data.aws_lambda_function.lambda_pagamento.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/GET/Pagamento/{id}"
 }
 # End Pagamento
 
@@ -734,7 +743,8 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.get_status_pagamento_by_id_integration,
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration,
-    aws_api_gateway_integration.post_pagamento_integration
+    aws_api_gateway_integration.post_pagamento_integration,
+    aws_api_gateway_integration.get_pagamento_by_id_integration
   ]
 }
 
