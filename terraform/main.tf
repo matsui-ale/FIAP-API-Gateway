@@ -126,6 +126,7 @@ resource "aws_api_gateway_method" "get_cliente_by_cpf" {
   }
 }
 
+/*
 resource "aws_api_gateway_integration" "get_cliente_by_cpf_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.cliente_cpf_resource.id
@@ -138,6 +139,7 @@ resource "aws_api_gateway_integration" "get_cliente_by_cpf_integration" {
     "integration.request.path.cpf" = "method.request.path.cpf"
   }
 }
+*/
 
 ### /Cliente - POST ###
 resource "aws_api_gateway_method" "post_cliente" {
@@ -151,6 +153,7 @@ resource "aws_api_gateway_method" "post_cliente" {
   }
 }
 
+*/
 resource "aws_api_gateway_integration" "post_cliente_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.cliente_resource.id
@@ -159,6 +162,7 @@ resource "aws_api_gateway_integration" "post_cliente_integration" {
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_cliente.arn}/invocations"
 }
+*/
 
 ### /Pedido - GET & POST ###
 resource "aws_api_gateway_method" "get_pedido" {
@@ -320,6 +324,7 @@ resource "aws_api_gateway_method" "get_produto_by_categoria" {
   }
 }
 
+/*
 resource "aws_api_gateway_integration" "get_produto_by_categoria_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_categoria_resource.id
@@ -332,6 +337,7 @@ resource "aws_api_gateway_integration" "get_produto_by_categoria_integration" {
     "integration.request.path.categoria" = "method.request.path.categoria"
   }
 }
+*/
 
 ### /Produto - POST, PUT, DELETE ###
 resource "aws_api_gateway_method" "post_produto" {
@@ -345,6 +351,7 @@ resource "aws_api_gateway_method" "post_produto" {
   }
 }
 
+*/
 resource "aws_api_gateway_integration" "post_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_resource.id
@@ -353,6 +360,7 @@ resource "aws_api_gateway_integration" "post_produto_integration" {
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_produto.arn}/invocations"
 }
+*/
 
 resource "aws_api_gateway_method" "put_produto" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
@@ -365,6 +373,7 @@ resource "aws_api_gateway_method" "put_produto" {
   }
 }
 
+*/
 resource "aws_api_gateway_integration" "put_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_resource.id
@@ -373,7 +382,9 @@ resource "aws_api_gateway_integration" "put_produto_integration" {
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_produto.arn}/invocations"
 }
+*/
 
+/*
 resource "aws_api_gateway_method" "delete_produto" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id   = aws_api_gateway_resource.produto_resource.id
@@ -384,6 +395,7 @@ resource "aws_api_gateway_method" "delete_produto" {
     "method.request.querystring.id" = false
   }
 }
+*/
 
 resource "aws_api_gateway_integration" "delete_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
@@ -455,6 +467,7 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_pedido_statuspedido" 
   source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/PUT/Pedido/StatusPedido"
 }
 
+/*
 resource "aws_lambda_permission" "allow_api_gateway_invoke_produto" {
   statement_id  = "AllowAPIGatewayInvokeProduto"
   action        = "lambda:InvokeFunction"
@@ -463,7 +476,9 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_produto" {
 
   source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*"
 }
+*/
 
+/*
 resource "aws_lambda_permission" "allow_api_gateway_invoke_cliente" {
   statement_id  = "AllowAPIGatewayInvokeCliente"
   action        = "lambda:InvokeFunction"
@@ -472,6 +487,7 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_cliente" {
 
   source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*"
 }
+*/
 
 # Define Models for Request Bodies
 resource "aws_api_gateway_model" "AtualizarProdutoRequest" {
