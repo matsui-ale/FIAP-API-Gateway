@@ -58,19 +58,14 @@ resource "aws_api_gateway_resource" "produto_resource" {
   path_part   = "Produto"
 }
 
-# Pagamento #
+# Begin Pagamento 
 resource "aws_api_gateway_resource" "pagamento_resource" {
   rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
   parent_id   = aws_api_gateway_rest_api.lanchonete_api.root_resource_id
   path_part   = "Pagamento"
 }
+# End Pagamento 
 
-
-resource "aws_api_gateway_resource" "cliente_cpf_resource" {
-  rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
-  parent_id   = aws_api_gateway_resource.cliente_resource.id
-  path_part   = "{cpf}"
-}
 
 
 # Sub-resources under "/api/Cliente"
@@ -120,7 +115,7 @@ resource "aws_api_gateway_resource" "produto_categoria_resource" {
 
 # Methods and Integrations for Each Endpoint
 
-# Pagamento
+# Begin Pagamento
 resource "aws_api_gateway_method" "post_pagamento" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id   = aws_api_gateway_resource.pagamento_resource.id
@@ -140,6 +135,7 @@ resource "aws_api_gateway_integration" "post_pagamento_integration" {
   integration_http_method = "POST"
   uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_pagamento.arn}/invocations"
 }
+# End Pagamento
 
 
 
@@ -482,8 +478,8 @@ resource "aws_api_gateway_model" "CriarProdutoRequest" {
   "additionalProperties": false
 }
 EOF
+# Begin Pagamento
 }
-
 resource "aws_api_gateway_model" "CriarPagamentoRequest" {
   rest_api_id  = aws_api_gateway_rest_api.lanchonete_api.id
   name         = "CriarPagamentoRequest"
@@ -499,6 +495,7 @@ resource "aws_api_gateway_model" "CriarPagamentoRequest" {
   "required": ["id", "valor"],
   "additionalProperties": false
 }
+# End Pagamento
 EOF
 }
 
