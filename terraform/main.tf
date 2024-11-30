@@ -681,7 +681,7 @@ resource "aws_api_gateway_model" "CriarPagamentoRequest" {
     "valor": { "type": "number" }
   },
   "required": ["id", "valor"],
-  "additionalProperties": false,
+  "additionalProperties": false
 }
 EOF
 }
