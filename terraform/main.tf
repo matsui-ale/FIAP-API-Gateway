@@ -628,8 +628,8 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
   stage_name  = "Prod"
 
   depends_on = [
-    aws_api_gateway_integration.get_cliente_by_cpf_integration,
-    aws_api_gateway_integration.post_cliente_integration,
+    #aws_api_gateway_integration.get_cliente_by_cpf_integration,
+    #aws_api_gateway_integration.post_cliente_integration,
     aws_api_gateway_integration.get_pedido_integration,
     aws_api_gateway_integration.post_pedido_integration,
     aws_api_gateway_integration.get_pedido_by_id_integration,
@@ -637,10 +637,10 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.get_status_pagamento_by_id_integration,
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration,
-    aws_api_gateway_integration.get_produto_by_categoria_integration,
-    aws_api_gateway_integration.post_produto_integration,
-    aws_api_gateway_integration.put_produto_integration,
-    aws_api_gateway_integration.delete_produto_integration
+    #aws_api_gateway_integration.get_produto_by_categoria_integration
+    #aws_api_gateway_integration.post_produto_integration,
+    #aws_api_gateway_integration.put_produto_integration,
+    #aws_api_gateway_integration.delete_produto_integration
   ]
 }
 
