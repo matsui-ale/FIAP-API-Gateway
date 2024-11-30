@@ -67,14 +67,6 @@ resource "aws_api_gateway_resource" "produto_resource" {
   path_part   = "Produto"
 }
 
-# Begin Pagamento
-resource "aws_api_gateway_resource" "pagamento_resource" {
-  rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
-  parent_id   = aws_api_gateway_rest_api.lanchonete_api.root_resource_id
-  path_part   = "Pagamento"
-}
-# End Pagamento
-
 # Sub-resources under "/api/Cliente"
 resource "aws_api_gateway_resource" "cliente_cpf_resource" {
   rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
@@ -121,7 +113,7 @@ resource "aws_api_gateway_resource" "produto_categoria_resource" {
 }
 
 # Methods and Integrations for Each Endpoint
-/*
+
 ### /Cliente/{cpf} - GET ###
 resource "aws_api_gateway_method" "get_cliente_by_cpf" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
@@ -133,7 +125,6 @@ resource "aws_api_gateway_method" "get_cliente_by_cpf" {
     "method.request.path.cpf" = true
   }
 }
-*/
 
 /*
 resource "aws_api_gateway_integration" "get_cliente_by_cpf_integration" {
@@ -644,6 +635,7 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.get_status_pagamento_by_id_integration,
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration
+
   ]
 }
 
