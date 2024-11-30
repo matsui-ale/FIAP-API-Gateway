@@ -153,7 +153,7 @@ resource "aws_api_gateway_method" "post_cliente" {
   }
 }
 
-*/
+/*
 resource "aws_api_gateway_integration" "post_cliente_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.cliente_resource.id
@@ -351,7 +351,7 @@ resource "aws_api_gateway_method" "post_produto" {
   }
 }
 
-*/
+/*
 resource "aws_api_gateway_integration" "post_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_resource.id
@@ -373,7 +373,7 @@ resource "aws_api_gateway_method" "put_produto" {
   }
 }
 
-*/
+/*
 resource "aws_api_gateway_integration" "put_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_resource.id
