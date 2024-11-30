@@ -532,7 +532,7 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento {
   function_name = data.aws_lambda_function.lambda_pagamento.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*"
+  source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/POST/Pagamento"
 }
 # End Pagamento
 
