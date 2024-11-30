@@ -121,7 +121,7 @@ resource "aws_api_gateway_resource" "produto_categoria_resource" {
 }
 
 # Methods and Integrations for Each Endpoint
-
+\
 ### /Cliente/{cpf} - GET ###
 resource "aws_api_gateway_method" "get_cliente_by_cpf" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
@@ -643,7 +643,6 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.get_status_pagamento_by_id_integration,
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration
-
   ]
 }
 
