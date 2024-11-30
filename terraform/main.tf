@@ -422,7 +422,7 @@ resource "aws_api_gateway_integration" "delete_produto_integration" {
 }
 */
 
-#Begin Pagamento
+# Begin Pagamento
 # [POST] /Pagamento
 resource "aws_api_gateway_method" "post_pagamento" {
   rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
