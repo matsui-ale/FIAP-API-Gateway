@@ -397,6 +397,7 @@ resource "aws_api_gateway_method" "delete_produto" {
 }
 */
 
+/*
 resource "aws_api_gateway_integration" "delete_produto_integration" {
   rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
   resource_id             = aws_api_gateway_resource.produto_resource.id
@@ -409,6 +410,7 @@ resource "aws_api_gateway_integration" "delete_produto_integration" {
     "integration.request.querystring.id" = "method.request.querystring.id"
   }
 }
+*/
 
 #Permission for lambdas
 
