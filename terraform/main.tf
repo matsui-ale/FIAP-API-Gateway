@@ -525,9 +525,11 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_cliente" {
 }
 */
 
+
+
 # Begin Pagamento
-resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento {
-  statement_id  = "AllowAPIGatewayInvokePagamento"
+resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento_post" {
+  statement_id  = "AllowAPIGatewayInvokePagamentoPost"
   action        = "lambda:InvokeFunction"
   function_name = data.aws_lambda_function.lambda_pagamento.function_name
   principal     = "apigateway.amazonaws.com"
