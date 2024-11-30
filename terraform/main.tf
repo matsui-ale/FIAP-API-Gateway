@@ -495,9 +495,10 @@ resource "aws_api_gateway_model" "CriarPagamentoRequest" {
   "required": ["id", "valor"],
   "additionalProperties": false
 }
-# End Pagamento
+
 EOF
 }
+# End Pagamento
 
 # Deploy the API
 resource "aws_api_gateway_deployment" "lanchonete_deployment" {
@@ -512,7 +513,7 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.get_status_pagamento_by_id_integration,
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration,
-    aws_api_gateway_integration.post_pagamento_integration,
+    aws_api_gateway_integration.post_pagamento_integration
   ]
 }
 
