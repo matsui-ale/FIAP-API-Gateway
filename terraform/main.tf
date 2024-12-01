@@ -126,6 +126,12 @@ resource "aws_api_gateway_resource" "pagamento_id_resource" {
   parent_id   = aws_api_gateway_resource.pagamento_resource.id
   path_part   = "{id}"
 }
+
+resource "aws_api_gateway_resource" "pagamento_webhook_resource" {
+  rest_api_id = aws_api_gateway_rest_api.lanchonete_api.id
+  parent_id   = aws_api_gateway_resource.pagamento_resource.id
+  path_part   = "Webhook"
+}
 # End Pagamento
 
 # Methods and Integrations for Each Endpoint
@@ -476,6 +482,23 @@ resource "aws_api_gateway_integration" "get_pagamento_by_id_integration" {
     "integration.request.path.id" = "method.request.path.id"
   }
 }
+
+resource "aws_api_gateway_method" "post_pagamento_webhook" {
+  rest_api_id   = aws_api_gateway_rest_api.lanchonete_api.id
+  resource_id   = aws_api_gateway_resource.pagamento_webhook_resource.id
+  http_method   = "POST"
+  authorization = "CUSTOM"
+  authorizer_id = aws_api_gateway_authorizer.lambda_authorizer.id
+}
+
+resource "aws_api_gateway_integration" "post_pagamento_webhook_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.lanchonete_api.id
+  resource_id             = aws_api_gateway_resource.pagamento_webhook_resource.id
+  http_method             = aws_api_gateway_method.post_pagamento.http_method
+  type                    = "AWS_PROXY"
+  integration_http_method = "POST"
+  uri                     = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/${data.aws_lambda_function.lambda_pagamento.arn}/invocations"
+}
 # End Pagamento
 
 
@@ -577,6 +600,15 @@ resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento_get_by_id" 
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/GET/Pagamento/{id}"
+}
+
+resource "aws_lambda_permission" "allow_api_gateway_invoke_pagamento_webhook" {
+  statement_id  = "AllowAPIGatewayInvokePostPagamentoWebhook"
+  action        = "lambda:InvokeFunction"
+  function_name = data.aws_lambda_function.lambda_pagamento.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.lanchonete_api.execution_arn}/*/POST/Pagamento/Webhook"
 }
 # End Pagamento
 
@@ -744,7 +776,8 @@ resource "aws_api_gateway_deployment" "lanchonete_deployment" {
     aws_api_gateway_integration.put_status_pedido_integration,
     aws_api_gateway_integration.put_status_pagamento_integration,
     aws_api_gateway_integration.post_pagamento_integration,
-    aws_api_gateway_integration.get_pagamento_by_id_integration
+    aws_api_gateway_integration.get_pagamento_by_id_integration,
+    aws_api_gateway_integration.post_pagamento_webhook_integration
   ]
 }
 
